@@ -1,92 +1,573 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>bd wear</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>BDwear Product Page</title>
+<style>
+* {
+  box-sizing: border-box;
+}
 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
 
-  <link rel="stylesheet" href="style.css">
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
+h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    text-align: center;
+    margin-bottom: 20px;
+}
 
+/* Product gallery */
+.product {
+    text-align: center;
+}
+
+.main-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.thumbnails img {
+    width: 60px;
+    height: auto;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: transform 0.2s, border 0.2s;
+}
+
+.thumbnails img:hover {
+    transform: scale(1.05);
+}
+
+.thumbnails img.active {
+    border: 2px solid black;
+    transform: scale(1.05);
+}
+
+/* Color buttons */
+.color-buttons {
+    margin: 20px 0;
+}
+
+.color-buttons strong {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.color-buttons button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: white;
+    font-size: 14px;
+    transition: all 0.3s;
+    min-height: 44px;
+    min-width: 70px;
+}
+
+.color-buttons button:hover {
+    background: #333;
+    color: white;
+}
+
+.color-buttons button:active {
+    transform: scale(0.98);
+}
+
+/* Size buttons */
+.size-options {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.size-options strong {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.size-options input {
+    display: none;
+}
+
+.size-options label {
+    padding: 10px 20px;
+    border: 1px solid #333;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+    transition: all 0.3s;
+    min-width: 50px;
+    text-align: center;
+}
+
+.size-options label:hover {
+    background: #f0f0f0;
+}
+
+.size-options input:checked + label {
+    background: black;
+    color: white;
+}
+
+/* Order form */
+.order-form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.order-form h2 {
+    text-align: center;
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    margin-bottom: 20px;
+}
+
+.order-form input, 
+.order-form select, 
+.order-form textarea,
+.order-form button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.order-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.order-form button {
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background 0.3s;
+    min-height: 50px;
+}
+
+.order-form button:hover {
+    background: #333;
+}
+
+.order-form button:active {
+    transform: scale(0.98);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .color-buttons button {
+        padding: 8px 12px;
+        min-width: 60px;
+        font-size: 13px;
+    }
+    
+    .size-options label {
+        padding: 8px 16px;
+        min-width: 45px;
+    }
+    
+    .thumbnails img {
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 5px;
+        padding: 12px;
+    }
+    
+    .color-buttons button {
+        padding: 6px 10px;
+        min-width: 55px;
+        font-size: 12px;
+    }
+    
+    .size-options label {
+        padding: 6px 12px;
+    }
+    
+    .thumbnails img {
+        width: 45px;
+    }
+    
+    .order-form input, 
+    .order-form select, 
+    .order-form textarea {
+        font-size: 14px;
+    }
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .color-buttons button,
+    .size-options label,
+    .thumbnails img,
+    .order-form button {
+        cursor: default;
+    }
+    
+    .color-buttons button:active {
+        background: #333;
+        color: white;
+    }
+    
+    .size-options label:active {
+        background: #f0f0f0;
+    }
+}
+/* Small color circles */
+.color-buttons {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.color-buttons strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 14px;
+}
+
+.color-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  margin: 4px;
+  transition: all 0.2s ease;
+  padding: 0;
+  display: inline-block;
+}
+
+.color-circle:hover {
+  transform: scale(1.1);
+  border-color: #333;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.color-circle:active {
+  transform: scale(0.95);
+}
+
+.color-circle.active {
+  border-color: black;
+  box-shadow: 0 0 0 1px white, 0 0 0 2px black;
+}
+
+/* Optional: Show color name on hover */
+.color-circle {
+  position: relative;
+}
+
+.color-circle:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+</style>
 </head>
-
 <body>
+
+<div class="container">
+
+<h1>BDwear Product</h1>
+
+<!-- Product Gallery -->
+<div class="product">
+
+  <!-- Main Image -->
+  <img id="mainImage" src="main.png" class="main-image" alt="Product main image">
+
+  <!-- Thumbnails -->
+  <div id="thumbnails" class="thumbnails">
+    <img src="1.png" onclick="changeImage(this)" class="active" alt="Product view 1">
+    <img src="2.png" onclick="changeImage(this)" alt="Product view 2">
+    <img src="3.png" onclick="changeImage(this)" alt="Product view 3">
+    <img src="4.png" onclick="changeImage(this)" alt="Product view 4">
+    <img src="5.png" onclick="changeImage(this)" alt="Product view 5">
+    <img src="6.png" onclick="changeImage(this)" alt="Product view 6">
+    <img src="7.png" onclick="changeImage(this)" alt="Product view 7">
+    <img src="001.png" onclick="changeImage(this)" alt="Product view 8">
+  </div>
+
+<!-- Color Buttons -->
+<div class="color-buttons">
+  <strong>Select Color:</strong>
+  <button onclick="switchColor('blue')" class="color-circle" style="background: rgb(29, 90, 255);" title="Blue"></button>
+  <button onclick="switchColor('gris')" class="color-circle" style="background: rgb(87, 87, 87);" title="Gris"></button>
+
+
+  <button onclick="switchColor('noir')" class="color-circle" style="background: black;" title="Noir"></button>
+  <button onclick="switchColor('bleun')" class="color-circle" style="background: #002366;" title="Bleu nuit"></button>
+  <button onclick="switchColor('red')" class="color-circle" style="background: rgb(148, 0, 0);" title="Rouge"></button>
+
+  <button onclick="switchColor('beig')" class="color-circle" style="background: #dfba75;" title="Beige"></button>
+  <button onclick="switchColor('pink')" class="color-circle" style="background: rgb(255, 157, 234);" title="Gris"></button>
+  <button onclick="switchColor('bleus')" class="color-circle" style="background: #19beff;" title="Bleu ciel"></button>
+
+</div>
+
+  <!-- Size Buttons -->
+  <div class="size-options">
+    <strong>Select Size:</strong><br>
+    <input type="radio" id="sizeS" name="Size" value="S" required>
+    <label for="sizeS">S</label>
+
+    <input type="radio" id="sizeM" name="Size" value="M">
+    <label for="sizeM">M</label>
+
+    <input type="radio" id="sizeL" name="Size" value="L">
+    <label for="sizeL">L</label>
+
+    <input type="radio" id="sizeXL" name="Size" value="XL">
+    <label for="sizeXL">XL</label>
+  </div>
+
+</div>
+
+<!-- Order Form -->
+<div class="order-form">
+<h2>Order Now</h2>
+<form action="https://formsubmit.co/dhiaegames3@gmail.com" method="POST">
+
+<input type="text" name="Name" placeholder="Name" required>
+
+<input type="tel" name="Phone" placeholder="Phone Number" required pattern="[0-9]{10,15}" title="Please enter a valid phone number (10-15 digits)">
+
+<select name="Wilaya" required>
+  <option value="">Select Wilaya</option>
+  <option value="1">01 - Adrar</option>
+  <option value="2">02 - Chlef</option>
+  <option value="3">03 - Laghouat</option>
+  <option value="4">04 - Oum El Bouaghi</option>
+  <option value="5">05 - Batna</option>
+  <option value="6">06 - Béjaïa</option>
+  <option value="7">07 - Biskra</option>
+  <option value="8">08 - Béchar</option>
+  <option value="9">09 - Blida</option>
+  <option value="10">10 - Bouira</option>
+  <option value="11">11 - Tamanrasset</option>
+  <option value="12">12 - Tébessa</option>
+  <option value="13">13 - Tlemcen</option>
+  <option value="14">14 - Tiaret</option>
+  <option value="15">15 - Tizi Ouzou</option>
+  <option value="16">16 - Alger</option>
+  <option value="17">17 - Djelfa</option>
+  <option value="18">18 - Jijel</option>
+  <option value="19">19 - Sétif</option>
+  <option value="20">20 - Saïda</option>
+  <option value="21">21 - Skikda</option>
+  <option value="22">22 - Sidi Bel Abbès</option>
+  <option value="23">23 - Annaba</option>
+  <option value="24">24 - Guelma</option>
+  <option value="25">25 - Constantine</option>
+  <option value="26">26 - Médéa</option>
+  <option value="27">27 - Mostaganem</option>
+  <option value="28">28 - M'Sila</option>
+  <option value="29">29 - Mascara</option>
+  <option value="30">30 - Ouargla</option>
+  <option value="31">31 - Oran</option>
+  <option value="32">32 - El Bayadh</option>
+  <option value="33">33 - Illizi</option>
+  <option value="34">34 - Bordj Bou Arréridj</option>
+  <option value="35">35 - Boumerdès</option>
+  <option value="36">36 - El Tarf</option>
+  <option value="37">37 - Tindouf</option>
+  <option value="38">38 - Tissemsilt</option>
+  <option value="39">39 - El Oued</option>
+  <option value="40">40 - Khenchela</option>
+  <option value="41">41 - Souk Ahras</option>
+  <option value="42">42 - Tipaza</option>
+  <option value="43">43 - Mila</option>
+  <option value="44">44 - Aïn Defla</option>
+  <option value="45">45 - Naâma</option>
+  <option value="46">46 - Aïn Témouchent</option>
+  <option value="47">47 - Ghardaïa</option>
+  <option value="48">48 - Relizane</option>
+  <option value="49">49 - Timimoun</option>
+  <option value="50">50 - Bordj Badji Mokhtar</option>
+  <option value="51">51 - Ouled Djellal</option>
+  <option value="52">52 - Béni Abbès</option>
+  <option value="53">53 - In Salah</option>
+  <option value="54">54 - In Guezzam</option>
+  <option value="55">55 - Touggourt</option>
+  <option value="56">56 - Djanet</option>
+  <option value="57">57 - El M'Ghair</option>
+  <option value="58">58 - El Menia</option>
+</select>
+<select name="livraison " required>
+    <option value = "1">bureau</option>
+    <option value = "2">domicile</option>
+
+</select>
+<input type="number" name="Quantity" placeholder="Quantity" min="1" value="1">
+
+<textarea name="Address" placeholder="Delivery Address" required></textarea>
+
+<!-- Hidden fields for FormSubmit -->
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="New Order From BDwear">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_next" value="https://yourwebsite.com/thankyou.html">
+
+<button type="submit">Order Now</button>
+</form>
+</div>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+// Images grouped by color - FIXED duplicate and missing entries
+const images = {
+  noir: ["3.png"],
+  bleun: ["4.png"],
+  blue: ["1.png"],
+  bleus: ["001.png"],
+  red: ["5.png"],
+  beig: ["6.png"],
+  gris: ["2.png"],
+  pink: ["7.png"]
+};
+
+// Change main image when clicking thumbnail
+function changeImage(el) {
+  if (!el || !el.src) return;
+  document.getElementById("mainImage").src = el.src;
+  // Highlight active thumbnail
+  document.querySelectorAll("#thumbnails img").forEach(img => img.classList.remove("active"));
+  el.classList.add("active");
+}
+
+// Switch color and update thumbnails
+function switchColor(color) {
+  const main = document.getElementById("mainImage");
+  const thumbs = document.getElementById("thumbnails");
   
+  // Check if color exists in images object
+  if (!images[color]) {
+    console.error("Color not found:", color);
+    return;
+  }
+  
+  const colorImages = images[color];
+  
+  // Update main image
+  if (colorImages && colorImages.length > 0) {
+    main.src = colorImages[0];
+  }
+  
+  // Clear old thumbnails
+  thumbs.innerHTML = "";
+  
+  // Create new thumbnails
+  colorImages.forEach((src, index) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "Product thumbnail";
+    img.onclick = function() { changeImage(this); };
+    if(index === 0) img.classList.add("active");
+    thumbs.appendChild(img);
+  });
+}
 
+// Optional: Add form validation before submit
+document.querySelector('form').addEventListener('submit', function(e) {
+  const phone = document.querySelector('input[name="Phone"]').value;
+  const phoneRegex = /^[0-9]{10,15}$/;
+  
+  if (!phoneRegex.test(phone)) {
+    e.preventDefault();
+    alert('Please enter a valid phone number (10-15 digits only)');
+    return false;
+  }
+  
+  const sizeSelected = document.querySelector('input[name="Size"]:checked');
+  if (!sizeSelected) {
+    e.preventDefault();
+    alert('Please select a size');
+    return false;
+  }
+  
+  return true;
+});
 
-<header>
-  <h2>BDwear</h2>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Features</a>
-    <a href="#">Contact</a>
-  </nav>
-</header>
+// Add touch event handling for mobile
+document.querySelectorAll('.color-buttons button').forEach(btn => {
+  btn.addEventListener('touchstart', function(e) {
+    // Just to improve touch response on mobile
+    this.style.transform = 'scale(0.98)';
+  });
+  btn.addEventListener('touchend', function(e) {
+    this.style.transform = '';
+  });
+});
 
-
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-<br><br>
-
-<section class="container">
-
-  <!-- Images -->
-  <div class="images">
-    <div class="main-image">
-      <img id="mainImage" src="img1.jpg" alt="Main Image">
-    </div>
-
-    <div class="thumbnails">
-      <img src="img1.jpg" onclick="changeImage(this)">
-      <img src="img2.jpg" onclick="changeImage(this)">
-      <img src="img3.jpg" onclick="changeImage(this)">
-    </div>
-  </div>
- <script> function changeImage(element) {
-  document.getElementById("mainImage").src = element.src;
-}</script>
-
-  <!-- Order Form -->
-  <div class="order-form">
-    <form action="https://formsubmit.co/dhiaegames3@gmail.com" method="POST">
-
-      <input type="text" name="Name" placeholder="Name" required>
-
-      <input type="text" name="FamilyName" placeholder="Family Name" required>
-
-      <input type="tel" name="Phone" placeholder="Phone Number" required>
-
-      <select name="Wilaya" required>
-        <option value="">Select Wilaya</option>
-        <option>Alger</option>
-        <option>Setif</option>
-        <option>Oran</option>
-        <option>Constantine</option>
-        <option>Annaba</option>
-        <option>Batna</option>
-      </select>
-
-      <select name="Size" required>
-        <option value="">Select Size</option>
-        <option>S</option>
-        <option>M</option>
-        <option>L</option>
-        <option>XL</option>
-      </select>
-
-      <button type="submit">Order Now</button>
-
-    </form>
-  </div>
-
-</section>
-<footer>
-  <p>© 2026 MyBrand. All rights reserved.</p>
-</footer>
+// Ensure images load properly with error handling
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('error', function() {
+    console.warn('Image failed to load:', this.src);
+    this.src = 'placeholder.png'; // Add a placeholder image
+  });
+});
+</script>
 
 </body>
 </html>
